@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:util="http://www.springframework.org/schema/util"
+       xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd">
+
+    <context:property-placeholder location="${MAIN_PROPS:classpath:Main.properties},
+                                            ${MODULES.PROPS:classpath:Modules.properties}"
+                                  system-properties-mode="OVERRIDE" ignore-resource-not-found="false"/>
+
+    <bean id="GetNumberOfStrings" class="Modules.TextModules.GetNumberOfStrings">
+        <constructor-arg index="0" value="${getNumberOfStringsFormats}"/>
+    </bean>
+
+    <bean id="GetNumberOfWords" class="Modules.TextModules.GetNumberOfWords">
+        <constructor-arg index="0" value="${getNumberOfWordsFormats}"/>
+    </bean>
+
+    <bean id="GetSymbolsFrequency" class="Modules.TextModules.GetSymbolsFrequency">
+        <constructor-arg index="0" value="${getNumberOfStringsFormats}"/>
+    </bean>
+
+    <bean id="GetFilesFromDirectory" class="Modules.DirectoryModules.GetFilesFromDirectory">
+        <constructor-arg index="0" value="${getFilesFromDirectoryFormats}"/>
+    </bean>
+
+    <bean id="GetDirectorySize" class="Modules.DirectoryModules.GetDirectorySize">
+        <constructor-arg index="0" value="${getDirectorySizeFormats}"/>
+    </bean>
+
+    <bean id="GetNumberOfFiles" class="Modules.DirectoryModules.GetNumberOfFiles">
+        <constructor-arg index="0" value="${getNumberOfFilesFormats}"/>
+    </bean>
+
+    <bean id="GetImageSize" class="Modules.ImageModules.GetImageSize">
+        <constructor-arg index="0" value="${getImageSizeFormats}"/>
+    </bean>
+
+    <bean id="GetNumberOfPixels" class="Modules.ImageModules.GetNumberOfPixels">
+        <constructor-arg index="0" value="${getNumberOfPixelsFormats}"/>
+    </bean>
+
+    <bean id="GetTrackName" class="Modules.MP3Modules.GetTrackName">
+        <constructor-arg index="0" value="${getTrackNameFormats}"/>
+    </bean>
+
+    <bean id="GetTrackLength" class="Modules.MP3Modules.GetTrackLength">
+        <constructor-arg index="0" value="${getTrackLengthFormat}"/>
+    </bean>
+
+    <bean id="GetTrackAuthor" class="Modules.MP3Modules.GetTrackAuthor">
+        <constructor-arg index="0" value="${getTrackAuthorFormat}"/>
+    </bean>
+
+    <util:list id="modulesList">
+        <ref bean="GetNumberOfStrings" />
+        <ref bean="GetNumberOfWords" />
+        <ref bean="GetSymbolsFrequency" />
+
+        <ref bean="GetFilesFromDirectory" />
+        <ref bean="GetDirectorySize" />
+        <ref bean="GetNumberOfFiles" />
+
+        <ref bean="GetImageSize" />
+        <ref bean="GetNumberOfPixels" />
+
+        <ref bean="GetTrackName" />
+        <ref bean="GetTrackLength" />
+        <ref bean="GetTrackAuthor" />
+    </util:list>
+
+    <bean id="Main" class="Main">
+        <constructor-arg index="0" value="${filePath}"/>
+        <constructor-arg index="1" ref="modulesList"/>
+    </bean>
+
+</beans>
