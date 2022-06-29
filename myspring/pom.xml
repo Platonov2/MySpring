@@ -29,7 +29,7 @@
 
         <aspectj.version>1.8.9</aspectj.version>
 
-        <derby.version>10.13.1.1</derby.version>
+        <derby.version>10.14.2.0</derby.version>
 
         <java.version>1.8</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
